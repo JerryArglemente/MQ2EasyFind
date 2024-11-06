@@ -2,6 +2,7 @@
 #include "EasyFindWindow.h"
 #include "EasyFindConfiguration.h"
 #include "EasyFindZoneConnections.h"
+#include <iostream>
 
 //----------------------------------------------------------------------------
 //
@@ -189,6 +190,13 @@ void CFindLocationWndOverride::AddZoneConnection(const FindableLocation& findabl
 				sm_originalZoneConnections[listRef->index] = unfilteredZoneConnectionList[listRef->index];
 				unfilteredZoneConnectionList[listRef->index] = findableLocation.eqZoneConnectionData;
 				sm_customRefs[listRefId] = { CustomRefType::Modified, &findableLocation };
+
+				// If we're actually a switch, but list has Location, make update here.
+				if (findableLocation.type == FindLocation_Switch && listRef->type == FindLocation_Location)
+				{
+					SPDLOG_DEBUG("\ay Resetting type as SWITCH: {} - {}", findableLocation.listCategory, findableLocation.listDescription);
+					listRef->type = FindLocation_Switch;
+				}
 
 				// Modify the colors
 				UpdateListRowColor(i);
