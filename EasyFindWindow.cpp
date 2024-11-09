@@ -2,7 +2,6 @@
 #include "EasyFindWindow.h"
 #include "EasyFindConfiguration.h"
 #include "EasyFindZoneConnections.h"
-#include <iostream>
 
 //----------------------------------------------------------------------------
 //
